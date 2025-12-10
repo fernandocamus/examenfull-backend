@@ -10,8 +10,4 @@ export class UpdateResenaDto {
   @IsOptional()
   @IsString()
   comentario?: string;
-
-  @IsOptional()
-  @IsBoolean()
-  aprobada?: boolean;
 }

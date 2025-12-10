@@ -39,7 +39,6 @@ export class PedidosController {
     @Headers('x-user-id') userIdHeader: string,
     @Body() createPedidoDto: CreatePedidoDto
   ) {
-    // Si viene el header, usarlo; si no, usar 1 por defecto
     const usuarioId = userIdHeader ? parseInt(userIdHeader) : 1;
     return this.pedidosService.create(usuarioId, createPedidoDto);
   }

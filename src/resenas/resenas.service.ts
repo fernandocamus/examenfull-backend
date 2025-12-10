@@ -35,7 +35,7 @@ export class ResenasService {
 
   async findByProducto(productoId: number): Promise<Resena[]> {
     return await this.resenasRepository.find({
-      where: { productoId, aprobada: true },
+      where: { productoId },
       relations: ['usuario'],
       order: { fechaCreacion: 'DESC' },
     });

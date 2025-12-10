@@ -23,9 +23,6 @@ export class Resena {
     @Column({ type: 'text', nullable: true })
     comentario: string;
 
-    @Column({ type: 'boolean', default: false })
-    aprobada: boolean;
-
     @CreateDateColumn({ name: 'fecha_creacion' })
     fechaCreacion: Date;
 

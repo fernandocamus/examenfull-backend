@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  NotFoundException,
-  BadRequestException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Usuario } from './entities/usuario.entity';
@@ -87,7 +83,6 @@ export class UsuariosService {
 
   async toggleActive(id: number): Promise<Usuario> {
     const usuario = await this.findOne(id);
-    usuario.activo = !usuario.activo;
     return await this.usuariosRepository.save(usuario);
   }
 }
