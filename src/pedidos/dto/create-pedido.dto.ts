@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsInt, IsOptional, IsString, IsEnum, IsArray, ValidateNested, Min } from 'class-validator';
+import { IsInt, IsOptional, IsString, IsEnum, IsArray, ValidateNested, Min, MaxLength } from 'class-validator';
 import { Type } from 'class-transformer';
 import { MetodoPago } from '../entities/pedido.constants';
 
@@ -49,6 +49,46 @@ export class CreatePedidoDto {
   })
   @IsEnum(MetodoPago)
   metodoPago: MetodoPago;
+
+  @ApiProperty({
+    example: 'Juan Pérez',
+    description: 'Nombre completo del destinatario',
+  })
+  @IsString()
+  @MaxLength(100)
+  nombreDestinatario: string;
+
+  @ApiProperty({
+    example: '+56912345678',
+    description: 'Teléfono de contacto',
+  })
+  @IsString()
+  @MaxLength(20)
+  telefono: string;
+
+  @ApiProperty({
+    example: 'Av. Libertador 123, Depto 401',
+    description: 'Dirección completa de envío',
+  })
+  @IsString()
+  @MaxLength(300)
+  direccion: string;
+
+  @ApiProperty({
+    example: 'Santiago',
+    description: 'Ciudad',
+  })
+  @IsString()
+  @MaxLength(100)
+  ciudad: string;
+
+  @ApiProperty({
+    example: 'Región Metropolitana',
+    description: 'Región',
+  })
+  @IsString()
+  @MaxLength(100)
+  region: string;
 
   @ApiPropertyOptional({
     example: 'Entregar en horario de oficina',

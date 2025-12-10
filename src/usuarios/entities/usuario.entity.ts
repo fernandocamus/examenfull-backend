@@ -1,4 +1,3 @@
-import { DireccionEnvio } from '../../direcciones-envio/entities/direccion-envio.entity';
 import { Pedido } from '../../pedidos/entities/pedido.entity';
 import { CarritoItem } from '../../carrito/entities/carrito-item.entity';
 import { Resena } from '../../resenas/entities/resena.entity';
@@ -38,9 +37,6 @@ export class Usuario {
 
   @Column({ type: 'boolean', default: true })
   activo: boolean;
-
-  @OneToMany(() => DireccionEnvio, (direccion) => direccion.usuario)
-  direcciones: DireccionEnvio[];
 
   @OneToMany(() => Pedido, (pedido) => pedido.usuario)
   pedidos: Pedido[];

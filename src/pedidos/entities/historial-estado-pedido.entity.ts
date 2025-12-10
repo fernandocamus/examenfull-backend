@@ -1,4 +1,3 @@
-// src/pedidos/entities/historial-estado-pedido.entity.ts
 import {
   Entity,
   Column,
@@ -7,8 +6,8 @@ import {
   CreateDateColumn,
   JoinColumn,
 } from 'typeorm';
-import { Pedido } from './pedido.entity'; // Solo importamos Pedido, NO el Enum
-import { EstadoPedido } from './pedido.constants'; // El Enum viene de aquí
+import { Pedido } from './pedido.entity'; 
+import { EstadoPedido } from './pedido.constants'; 
 import { Usuario } from '../../usuarios/entities/usuario.entity';
 
 @Entity('historial_estado_pedidos')

@@ -8,7 +8,6 @@ import { HistorialEstadoPedido } from './entities/historial-estado-pedido.entity
 import { CreatePedidoDto } from './dto/create-pedido.dto';
 import { UpdateEstadoPedidoDto } from './dto/update-estado-pedido.dto';
 import { ProductosService } from '../productos/productos.service';
-import { DireccionesEnvioService } from '../direcciones-envio/direcciones-envio.service';
 
 @Injectable()
 export class PedidosService {
@@ -20,13 +19,19 @@ export class PedidosService {
     @InjectRepository(HistorialEstadoPedido)
     private readonly historialRepository: Repository<HistorialEstadoPedido>,
     private readonly productosService: ProductosService,
-    private readonly direccionesService: DireccionesEnvioService,
   ) {}
 
   async create(usuarioId: number, createPedidoDto: CreatePedidoDto): Promise<Pedido> {
-    const { items, direccionEnvioId, metodoPago, notasCliente } = createPedidoDto;
-
-    await this.direccionesService.findOne(direccionEnvioId, usuarioId);
+    const { 
+      items, 
+      metodoPago, 
+      notasCliente,
+      nombreDestinatario,
+      telefono,
+      direccion,
+      ciudad,
+      region
+    } = createPedidoDto;
 
     let subtotal = 0;
     let totalIva = 0;
@@ -70,15 +75,18 @@ export class PedidosService {
     }
 
     const total = subtotal + totalIva;
-
     const numeroPedido = await this.generarNumeroPedido();
 
     const pedido = this.pedidosRepository.create({
       numeroPedido,
-      usuario: { id: usuarioId }, 
-      direccionEnvio: { id: direccionEnvioId }, 
+      usuarioId: usuarioId,
       metodoPago,
       notasCliente,
+      nombreDestinatario,
+      telefono,
+      direccion,
+      ciudad,
+      region,
       subtotal: Number(subtotal.toFixed(2)),
       totalIva: Number(totalIva.toFixed(2)),
       total: Number(total.toFixed(2)),
@@ -88,7 +96,7 @@ export class PedidosService {
     const pedidoGuardado = await this.pedidosRepository.save(pedido);
 
     for (const detalle of detalles) {
-      detalle.pedidoId = pedidoGuardado.id; 
+      detalle.pedidoId = pedidoGuardado.id;
       await this.detallesRepository.save(detalle);
 
       await this.productosService.descontarStock(
@@ -104,15 +112,14 @@ export class PedidosService {
 
   async findAll(): Promise<Pedido[]> {
     return await this.pedidosRepository.find({
-      relations: ['usuario', 'direccionEnvio'],
+      relations: ['usuario'],
       order: { fechaHora: 'DESC' },
     });
   }
 
   async findByUser(usuarioId: number): Promise<Pedido[]> {
     return await this.pedidosRepository.find({
-      where: { usuario: { id: usuarioId } }, 
-      relations: ['direccionEnvio'],
+      where: { usuarioId: usuarioId },
       order: { fechaHora: 'DESC' },
     });
   }
@@ -120,7 +127,7 @@ export class PedidosService {
   async findByEstado(estado: EstadoPedido): Promise<Pedido[]> {
     return await this.pedidosRepository.find({
       where: { estado },
-      relations: ['usuario', 'direccionEnvio'],
+      relations: ['usuario'],
       order: { fechaHora: 'DESC' },
     });
   }
@@ -130,7 +137,6 @@ export class PedidosService {
       where: { id },
       relations: [
         'usuario',
-        'direccionEnvio',
         'detalles',
         'detalles.producto',
         'historialEstados',

@@ -1,18 +1,7 @@
-// src/pedidos/entities/pedido.entity.ts
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToOne,
-  OneToMany,
-  CreateDateColumn,
-  JoinColumn,
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany, CreateDateColumn, JoinColumn } from 'typeorm';
 import { Usuario } from '../../usuarios/entities/usuario.entity';
-import { DireccionEnvio } from '../../direcciones-envio/entities/direccion-envio.entity';
 import { DetallePedido } from './detalle-pedido.entity';
 import { HistorialEstadoPedido } from './historial-estado-pedido.entity';
-// IMPORTAMOS LOS ENUMS DEL ARCHIVO NUEVO
 import { EstadoPedido, MetodoPago } from './pedido.constants';
 
 @Entity('pedidos')
@@ -71,15 +60,27 @@ export class Pedido {
   @Column({ name: 'numero_seguimiento', type: 'varchar', length: 100, nullable: true })
   numeroSeguimiento: string;
 
+  @Column({ name: 'nombre_destinatario', type: 'varchar', length: 100 })
+  nombreDestinatario: string;
+
+  @Column({ type: 'varchar', length: 20 })
+  telefono: string;
+
+  @Column({ type: 'varchar', length: 300 })
+  direccion: string;
+
+  @Column({ type: 'varchar', length: 100 })
+  ciudad: string;
+
+  @Column({ type: 'varchar', length: 100 })
+  region: string;
+
+  @Column({ name: 'usuario_id' })
+  usuarioId: number;
+
   @ManyToOne(() => Usuario, (usuario) => usuario.pedidos)
   @JoinColumn({ name: 'usuario_id' })
   usuario: Usuario;
-
-  @ManyToOne(() => DireccionEnvio, (direccion) => direccion.pedidos, {
-    eager: true,
-  })
-  @JoinColumn({ name: 'direccion_envio_id' })
-  direccionEnvio: DireccionEnvio;
 
   @OneToMany(() => DetallePedido, (detalle) => detalle.pedido, {
     cascade: true,
