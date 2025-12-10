@@ -15,12 +15,12 @@ export class ProductosService {
   async create(createProductoDto: CreateProductoDto): Promise<Producto> {
     const { precioBase, iva = 19 } = createProductoDto;
 
-    const precioConIva = precioBase * (1 + iva / 100);
+    const precioConIva = Number((precioBase * (1 + iva / 100)).toFixed(2));
 
     const producto = this.productosRepository.create({
       ...createProductoDto,
       iva,
-      precioConIva: Number(precioConIva.toFixed(2)),
+      precioConIva,
     });
 
     return await this.productosRepository.save(producto);
@@ -29,7 +29,7 @@ export class ProductosService {
   async findAll(): Promise<Producto[]> {
     return await this.productosRepository.find({
       relations: ['categoria'],
-      order: { fechaCreacion: 'DESC' },
+      order: { id: 'DESC' },
     });
   }
 
@@ -46,19 +46,15 @@ export class ProductosService {
     return producto;
   }
 
-  async update(
-    id: number,
-    updateProductoDto: UpdateProductoDto,
-  ): Promise<Producto> {
+  async update(id: number, updateProductoDto: UpdateProductoDto): Promise<Producto> {
     const producto = await this.findOne(id);
 
     Object.assign(producto, updateProductoDto);
 
-    if (updateProductoDto.precioBase || updateProductoDto.iva) {
+    if (updateProductoDto.precioBase !== undefined || updateProductoDto.iva !== undefined) {
       const precioBase = producto.precioBase;
       const iva = producto.iva;
-      const precioConIva = precioBase * (1 + iva / 100);
-      producto.precioConIva = Number(precioConIva.toFixed(2));
+      producto.precioConIva = Number((precioBase * (1 + iva / 100)).toFixed(2));
     }
 
     return await this.productosRepository.save(producto);

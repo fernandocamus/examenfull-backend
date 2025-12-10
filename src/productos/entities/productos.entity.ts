@@ -13,12 +13,12 @@ export class Producto {
   nombre: string;
 
   @Column({ type: 'text', nullable: true })
-  descripcion: string;
+  descripcion?: string;
 
-  @Column({ name: 'precio_base', type: 'decimal', precision: 10, scale: 2 })
+  @Column({ name: 'precio_base', type: 'int'})
   precioBase: number;
 
-  @Column({ type: 'decimal', precision: 5, scale: 2, default: 19 })
+  @Column({ type: 'decimal', default: 19 })
   iva: number;
 
   @Column({ name: 'precio_con_iva', type: 'decimal', precision: 10, scale: 2 })
@@ -33,29 +33,11 @@ export class Producto {
   @Column({ name: 'categoria_id' })
   categoriaId: number;
 
-  @Column({ name: 'ruta_imagen', type: 'varchar', length: 255, nullable: true })
-  rutaImagen: string;
-
-  @Column({ name: 'imagenes_adicionales', type: 'json', nullable: true })
-  imagenesAdicionales: string[];
-
-  @Column({ type: 'boolean', default: false })
-  destacado: boolean;
+  @Column({ nullable: true })
+  rutaImagen?: string;
 
   @Column({ type: 'boolean', default: true })
   activo: boolean;
-
-  @Column({ type: 'decimal', precision: 8, scale: 2, nullable: true })
-  peso: number;
-
-  @Column({ type: 'json', nullable: true })
-  dimensiones: { largo: number; ancho: number; alto: number };
-
-  @CreateDateColumn({ name: 'fecha_creacion' })
-  fechaCreacion: Date;
-
-  @UpdateDateColumn({ name: 'fecha_actualizacion' })
-  fechaActualizacion: Date;
 
   @ManyToOne(() => Categoria, (categoria) => categoria.productos)
   @JoinColumn({ name: 'categoria_id' })

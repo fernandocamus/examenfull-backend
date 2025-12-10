@@ -48,16 +48,6 @@ export class CreateProductoDto {
   @Min(0)
   stockActual: number;
 
-  @ApiPropertyOptional({
-    example: 5,
-    description: 'Stock mínimo para alerta',
-    minimum: 0,
-    default: 5,
-  })
-  @IsOptional()
-  @IsInt()
-  @Min(0)
-  stockMinimo?: number;
 
   @ApiProperty({
     example: 1,
@@ -74,51 +64,4 @@ export class CreateProductoDto {
   @IsString()
   rutaImagen?: string;
 
-  @ApiPropertyOptional({
-    example: ['https://ejemplo.com/img1.jpg', 'https://ejemplo.com/img2.jpg'],
-    description: 'URLs de imágenes adicionales del producto',
-    type: [String],
-  })
-  @IsOptional()
-  @IsArray()
-  imagenesAdicionales?: string[];
-
-  @ApiPropertyOptional({
-    example: false,
-    description: 'Indica si el producto es destacado',
-    default: false,
-  })
-  @IsOptional()
-  @IsBoolean()
-  destacado?: boolean;
-
-  @ApiPropertyOptional({
-    example: true,
-    description: 'Indica si el producto está activo',
-    default: true,
-  })
-  @IsOptional()
-  @IsBoolean()
-  activo?: boolean;
-
-  @ApiPropertyOptional({
-    example: 2.5,
-    description: 'Peso del producto en kg',
-    minimum: 0,
-  })
-  @IsOptional()
-  @IsNumber()
-  peso?: number;
-
-  @ApiPropertyOptional({
-    example: { largo: 30, ancho: 20, alto: 5 },
-    description: 'Dimensiones del producto en cm',
-  })
-  @IsOptional()
-  @IsObject()
-  dimensiones?: {
-    largo: number;
-    ancho: number;
-    alto: number;
-  };
 }
