@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Pedido } from "./pedido.entity";
-import { Producto } from "src/productos/entities/productos.entity";
+import { Producto } from "../../productos/entities/productos.entity";
 
 @Entity('detalle_pedido')
 export class DetallePedido {

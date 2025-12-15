@@ -1,7 +1,7 @@
 INSERT INTO usuarios (nombre, correo, contrasena, rol, telefono) VALUES
-('Admin Principal', 'admin@tienda.com', '123456', 'ADMIN', '+56911112222'),
-('Cliente Juan', 'juan@correo.com', '123456', 'CLIENTE', '+56987654321'),
-('Cliente Maria', 'maria@correo.com', '123456', 'CLIENTE', '+56999887766');
+('Admin Principal', 'admin@tienda.com', '$2b$10$scbWGx1V0SrClxJSmlKXjeo5XtpccORQjYA4QH81ePr4qEfNU1Jsm', 'ADMIN', '+56911112222'),
+('Cliente Juan', 'juan@tienda.com', '$2b$10$scbWGx1V0SrClxJSmlKXjeo5XtpccORQjYA4QH81ePr4qEfNU1Jsm', 'CLIENTE', '+56987654321'),
+('Cliente Maria', 'maria@tienda.com', '$2b$10$scbWGx1V0SrClxJSmlKXjeo5XtpccORQjYA4QH81ePr4qEfNU1Jsm', 'CLIENTE', '+56999887766');
 
 INSERT INTO categorias (nombre, descripcion, activo, orden) VALUES
 ('Electrónica', 'Productos tecnológicos como laptops, tablets, teléfonos y accesorios.', 1, 1),

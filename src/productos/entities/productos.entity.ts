@@ -1,7 +1,7 @@
-import { CarritoItem } from 'src/carrito/entities/carrito-item.entity';
-import { Categoria } from 'src/categorias/entities/categoria.entity';
-import { DetallePedido } from 'src/pedidos/entities/detalle-pedido.entity';
-import { Resena } from 'src/resenas/entities/resena.entity';
+import { CarritoItem } from '../../carrito/entities/carrito-item.entity';
+import { Categoria } from '../../categorias/entities/categoria.entity';
+import { DetallePedido } from '../../pedidos/entities/detalle-pedido.entity';
+import { Resena } from '../../resenas/entities/resena.entity';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany, CreateDateColumn, UpdateDateColumn, JoinColumn,} from 'typeorm';
 
 @Entity('productos')

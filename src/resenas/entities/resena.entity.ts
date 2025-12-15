@@ -1,6 +1,6 @@
-import { Pedido } from "src/pedidos/entities/pedido.entity";
-import { Producto } from "src/productos/entities/productos.entity";
-import { Usuario } from "src/usuarios/entities/usuario.entity";
+import { Pedido } from "../../pedidos/entities/pedido.entity";
+import { Producto } from "../../productos/entities/productos.entity";
+import { Usuario } from "../../usuarios/entities/usuario.entity";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('resenas')

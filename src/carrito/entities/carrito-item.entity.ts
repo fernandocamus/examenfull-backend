@@ -1,5 +1,5 @@
-import { Producto } from 'src/productos/entities/productos.entity';
-import { Usuario } from 'src/usuarios/entities/usuario.entity';
+import { Producto } from '../../productos/entities/productos.entity';
+import { Usuario } from '../../usuarios/entities/usuario.entity';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn, JoinColumn } from 'typeorm';
 
 @Entity('carrito')
